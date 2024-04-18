@@ -15,8 +15,13 @@ void solve()
     map<int, int> mp;
     for(i = 0; i < n; i++){
         cin>>v[i];
+        mp[v[i]] =i;
     }
-    
+    int ans=0;
+    for(int i=2;i<=n;i++) {
+        if(mp[i]<mp[i-1]) ans++;
+    }
+    cout<<ans<<endl;
     return;
 }
      
