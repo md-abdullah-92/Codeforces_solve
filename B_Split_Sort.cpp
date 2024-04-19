@@ -17,7 +17,7 @@ void solve()
         cin>>v[i];
         mp[v[i]] =i;
     }
-    int ans=0;
+    int ans=0;zz
     for(int i=2;i<=n;i++) {
         if(mp[i]<mp[i-1]) ans++;
     }
