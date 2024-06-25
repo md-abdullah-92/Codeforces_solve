@@ -15,8 +15,27 @@ void solve()
 {
     int n;
     cin >> n;
-   
-    cout<<n-1<<endl;
+    vector<int> v(n);
+    int odd=0,even=0;
+    for (int i = 0; i < n; i++) {
+        cin >> v[i];
+        if(i%2){
+            odd+=(v[i]%2);
+        }
+        else{
+            even+=(v[i]%2);
+        }
+    }
+    int n0=(n+1)/2;
+    int n1=n/2;
+    //cout<<n0<<" "<<n1<<" "<<odd<<" "<<even<<endl;
+    if((n0==even||even==0)&&(n1==odd||odd==0)) {
+        yes;
+    }
+    else{
+        no;
+    }   
+    
     return;
 }
 

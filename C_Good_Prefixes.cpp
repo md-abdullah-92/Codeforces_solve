@@ -15,8 +15,22 @@ void solve()
 {
     int n;
     cin >> n;
-   
-    cout<<n-1<<endl;
+    vector<int> v(n);
+    map<int, int> mp;
+    int sum = 0;
+    int ans=0;
+    for (int i = 0; i < n; i++) {
+        cin >> v[i];
+        mp[v[i]]++;
+        sum+=v[i];
+        if(sum%2==0){
+            int k=sum/2;
+            if(mp[k]>0){
+                ans++;
+            }   
+        }
+    }
+    cout<<ans<<endl;
     return;
 }
 

@@ -13,10 +13,13 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n;
-    cin >> n;
-   
-    cout<<n-1<<endl;
+    int x,y,a,b;
+    cin >>x>>a>>y>>b;
+    if(x<=a&&y>=b||a<=x&&b>=y){
+        no;
+    }
+    else 
+       yes;
     return;
 }
 

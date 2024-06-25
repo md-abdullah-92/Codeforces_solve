@@ -14,9 +14,32 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 void solve()
 {
     int n;
+    string s="##";
+    string s1="..",ans0="",ans1="";
     cin >> n;
-   
-    cout<<n-1<<endl;
+    int c=1;
+    for(int i=0;i<n;i++){
+       if(c){
+        ans0+=s;
+        ans1+=s1;
+       }
+       else{
+        ans0+=s1;
+        ans1+=s;
+       }
+       c^=1;
+    }
+    for(int i=0;i<n;i++){
+        if(i%2) {
+            cout<<ans1<<endl<<ans1;
+        }
+        else {
+            cout<<ans0<<endl<<ans0;
+        }
+        
+        
+        cout<<endl;
+    }
     return;
 }
 

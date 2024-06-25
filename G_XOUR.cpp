@@ -15,8 +15,34 @@ void solve()
 {
     int n;
     cin >> n;
-   
-    cout<<n-1<<endl;
+    set<int>ans;
+    map<int,vector<int>>v;
+    map<int,vector<int>>v1;
+    for (int i = 0; i < n; i++) {
+        int x;
+        cin >> x;
+        int k=(x/2)/2;
+        v[k].push_back(x);
+        v1[k].push_back(i);
+        ans.insert(k);
+    }
+    vector<int>ans1(n,0);
+    for(auto i:ans){
+        sort(v[i].begin(),v[i].end());
+        int k=0;
+        for(auto j:v[i]){
+            int x=v1[i][k]; 
+            
+           ans1[x]=j;
+           k++;
+        }
+    
+    }
+    for(auto i:ans1){
+        cout<<i<<" ";
+    }
+     cout<<endl;
+    
     return;
 }
 

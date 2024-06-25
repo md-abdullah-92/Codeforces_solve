@@ -1,58 +1,80 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
 using namespace std;
 
 #define int long long
 #define yes cout << "YES\n";
 #define no cout << "NO\n";
-template <typename T>
-using order_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update>;
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-void solve()
-{
-    int n,k,pa,pb;
-    cin >>n>>k>>pa>>pb;
-    vector<int> v1(n),p1(n);
-    for(int i=0;i<n;i++) cin>>p1[i];
-    for(int i=0;i<n;i++) cin>>v1[i];
-    map<int, int> mp;
-    int i=k;
-    int suma=0,sumb=0;
-    while(--i){
-        suma+=v1[pa-1];
-        int p=p1[pa-1];
-     if(v1[pa-1]<=v1[p]){
-        pa=p;
-     }
-     else{
-        suma+=v1[pa-1]*i;
-        i=0;
-     }
+vector<int> v;  // Value array
+vector<int> p;  // Permutation array
+int ans =0;
+int mx=0;
+void dfs(int t, int i, int k, vector<bool>& visited) {
+    if (t == 0) {
+      ans= max(k,ans);
+      return;
     }
-    i=k;
-    while(--i){
-        sumb+=v1[pb-1];
-        int p=p1[pb-1];
-     if(v1[pb-1]<=v1[p]){
-        pb=p;
-     }
-     else{
-        sumb+=v1[pb-1]*i;
-        i=0;
-     }
+    if(v[i]==mx||visited[i]){
+    int x = k + v[i] * t;
+      ans= max(x,ans);
+      return;
     }
-    cout<<suma<<" "<<sumb<<endl;
-    return;
+    visited[i] = true;
+    t--;
+    int new_k = k + v[i];
+    int x = k + v[i] * (t+1);
+    ans= max(x, ans);
+    dfs(t, p[i], new_k, visited);
+    
 }
 
-int32_t main()
-{
+void solve() {
+    int n, t, pa, ps;
+    cin >> n >> t >> pa >> ps;
+    pa--;  // Convert to 0-based index
+    ps--;  // Convert to 0-based index
+
+    v.resize(n);
+    p.resize(n);
+
+    for (int i = 0; i < n; i++) {
+        cin >> p[i];
+        p[i]--;  // Convert to 0-based index
+    }
+    mx=0;
+    for (int i = 0; i < n; i++) {
+        cin >> v[i];
+         mx=max(mx,v[i]);
+    }
+    
+    // Calculate Bodya's score
+    vector<bool> visited(n, false);
+    ans=0;
+    dfs(t, pa, 0, visited);
+    int scoreBodya =ans;
+   //cout<<scoreBodya<<endl;
+   ans=0;
+    // Calculate Sasha's score
+    fill(visited.begin(), visited.end(), false);
+   dfs(t, ps, 0, visited);
+    int scoreSasha = ans;
+   // cout<<scoreSasha<<endl;   
+    if (scoreBodya > scoreSasha) {
+        cout << "Bodya" << endl;
+    } else if (scoreBodya < scoreSasha) {
+        cout << "Sasha" << endl;
+    } else {
+        cout << "Draw" << endl;
+    }
+
+    v.clear();
+    p.clear();
+}
+
+int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int T = 1;
+    int T;
     cin >> T;
     while (T--) {
         solve();

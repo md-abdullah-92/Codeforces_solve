@@ -1,37 +1,50 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
 using namespace std;
 
 #define int long long
-#define yes cout << "YES\n";
-#define no cout << "NO\n";
-template <typename T>
-using order_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update>;
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-void solve()
-{
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    map<int, int> mp;
-    for (int i = 0; i < n; i++) {
-        cin >> v[i];
+void solve() {
+    int n, c, q;
+    cin >> n >> c >> q;
+    string s;
+    cin >> s;
+
+    vector<pair<int, int>> operations(c);
+    vector<int> lengths(c + 1);
+    lengths[0] = n;
+
+    for (int i = 0; i < c; ++i) {
+        int l, r;
+        cin >> l >> r;
+        operations[i] = {l - 1, r - 1};
+        lengths[i + 1] = lengths[i] + (r - l + 1);
     }
-    sort(v.begin(),v.end());
-    return;
+
+    while (q--) {
+        int k;
+        cin >> k;
+        --k;
+
+        for (int i = c; i > 0; --i) {
+            if (k >= lengths[i - 1]) {
+                int offset = k - lengths[i - 1];
+                k = operations[i - 1].first + offset;
+            }
+        }
+
+        cout << s[k] << '\n';
+    }
 }
 
-int32_t main()
-{
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int T = 1;
-    cin >> T;
-    while (T--) {
+int32_t main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
         solve();
     }
+
     return 0;
 }

@@ -13,10 +13,11 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n;
-    cin >> n;
-   
-    cout<<n-1<<endl;
+    int n,a,b;
+    cin >> n>>a>>b;
+    int k=(n/2)*(min(2*a,b));   
+    k+=(n%2)*a;
+    cout<<k<<endl;
     return;
 }
 

@@ -13,11 +13,29 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n;
-    cin >> n;
-   
-    cout<<n-1<<endl;
-    return;
+    int a,b,r;
+    cin >> a >> b >> r;
+    if(a>b){
+        swap(a,b);
+    }
+    int flag=1;
+    int x=0;
+    for(int i=60;i>=0;i--){
+        int ax=(a>>i)&1;
+        int bx=(b>>i)&1;
+        if(ax!=bx){
+            if(flag){
+                flag=0;
+            }
+            else{
+                if(!ax&&(x+(1ll<<i))<=r){
+                    x+=(1ll<<i);
+                }
+            }
+        } 
+    }
+    int ans=abs((a^x)-(b^x));
+    cout<<ans<<endl;
 }
 
 int32_t main()

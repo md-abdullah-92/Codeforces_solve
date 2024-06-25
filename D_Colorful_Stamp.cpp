@@ -15,8 +15,43 @@ void solve()
 {
     int n;
     cin >> n;
-   
-    cout<<n-1<<endl;
+    string s;
+    cin >> s;
+    int b=0,r=0;
+    int ans=1;
+    for(int i=0;i<n;i++){
+        if(s[i]=='B'){
+            b++;
+        }
+        else if(s[i]=='R'){
+            r++;
+        }
+        else {
+            if((b==0&&r==0)||(b&&r)) {
+                b=0;
+                r=0;
+            }
+            else{
+            ans=0;
+            break;
+            }
+        }
+
+    }
+      if((b==0&&r==0)||(b&&r)) {
+                b=0;
+                r=0;
+            }
+            else{
+            ans=0;
+            
+            }
+    if(ans){
+        yes;
+    }
+    else{
+        no;
+    }
     return;
 }
 

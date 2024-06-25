@@ -8,15 +8,30 @@ using namespace std;
 #define yes cout << "YES\n";
 #define no cout << "NO\n";
 template <typename T>
-using order_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+using order_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n;
-    cin >> n;
-   
-    cout<<n-1<<endl;
+    int x, y, k;
+    cin >> x >> y >> k;
+    
+    while (k > 0) {
+        int p = y - (x % y);
+        if (p > k) break;
+        
+        x += p;
+        k -= p;
+        while (x % y == 0) {
+            x /= y;
+        }
+        if(x==1){
+            k=k%(y-1);
+        }
+       // cout<<x<<" ";
+    }
+
+    cout << x + k << endl;
     return;
 }
 
@@ -24,7 +39,7 @@ int32_t main()
 {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    int T = 1;
+    int T;
     cin >> T;
     while (T--) {
         solve();

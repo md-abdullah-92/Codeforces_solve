@@ -13,10 +13,22 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n;
-    cin >> n;
-   
-    cout<<n-1<<endl;
+    int x,y,z,k;
+    cin >>x>>y>>z>>k;
+    map<int, int> mp;
+     for (int a = 1;a <= x; ++a) {
+        if (k % a == 0) {
+            for (int b = 1; b<=y; ++b) {
+                if ((k / a) % b == 0) {
+                    int c = k / (a * b);
+                    if (a * b * c == k) {
+                        cout<<a<<" "<<b<<" "<<c<<endl;
+                    }
+                }
+            }
+        }
+    }
+    
     return;
 }
 

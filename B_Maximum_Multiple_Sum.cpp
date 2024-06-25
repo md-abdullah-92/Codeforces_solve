@@ -15,8 +15,23 @@ void solve()
 {
     int n;
     cin >> n;
-   
-    cout<<n-1<<endl;
+    vector<pair<int,int>> v;
+    for(int i=2;i<=n;i++){
+        int k=i;
+        int sum=0;
+        for(int j=1;j<=n;j++){
+            int k=i*j;
+            if(k>n){
+                break;
+            }
+            sum+=k;
+        }
+        v.push_back({sum,i});
+       // cout<<sum<<" "<<i<<endl;
+
+    }
+    sort(v.begin(),v.end(),greater<pair<int,int>>());
+    cout<<v[0].second<<endl;
     return;
 }
 

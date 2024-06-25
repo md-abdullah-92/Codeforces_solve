@@ -13,11 +13,14 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n;
-    cin >> n;
-   
-    cout<<n-1<<endl;
-    return;
+    int n,m;
+    cin >> n>>m;
+   int ans=0;
+   while(m>1){
+          ans++;
+          m/=2;
+   }
+   cout<<ans<<endl;
 }
 
 int32_t main()

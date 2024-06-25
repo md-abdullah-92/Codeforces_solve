@@ -15,8 +15,12 @@ void solve()
 {
     int n;
     cin >> n;
-   
-    cout<<n-1<<endl;
+    vector<int> v(n);
+    map<int, int> mp;
+    for (int i = 0; i < n; i++) {
+        cin >> v[i];
+    }
+    sort(v.begin(),v.end());
     return;
 }
 
