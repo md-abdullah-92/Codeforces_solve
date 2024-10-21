@@ -13,18 +13,22 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n,x;
-    cin >> n>>x;
-    int ans=0;
-    for(int a=1;a<=min(n,x);a++)
+    string s1,s2;
+    cin >> s1>>s2;
+    int n=s1.size(),m=s2.size();
+    int k=0;
+    int i=0;
+    int j=0;
+    while(n>i&&m>j&&s1[i]==s2[j])
     {
-       for(int b=1;a*b<=n&& a+b<=x;b++)
-       {
-          int p=x-(a+b);
-          int q=(n-a*b)/(a+b);
-          ans+=min(p,q);
-       }
+        i++;
+        j++;
     }
+    if(i==0) {
+        cout<<n+m<<endl;
+        return;
+    }
+    int ans=n+m-i+1;
     cout<<ans<<endl;
     return;
 }

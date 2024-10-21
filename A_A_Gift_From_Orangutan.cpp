@@ -1,9 +1,15 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
 
 #define int long long
 #define yes cout << "YES\n";
 #define no cout << "NO\n";
+template <typename T>
+using order_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update>;
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
@@ -11,26 +17,15 @@ void solve()
     cin >> n;
     vector<int> v(n);
     map<int, int> mp;
+    int mx = 0;
+    int mn=INT_MAX;
     for (int i = 0; i < n; i++) {
         cin >> v[i];
+        mx = max(mx, v[i]);
+        mn=min(mn,v[i]);
     }
-    int mx=INT32_MIN;
-    int sum=0;
-    int k=-1;
-    for(int i=0;i<n;i++) {
-       int z = abs(v[i])%2;
-       if(z==k){
-        sum=0;
-       }
-       if(sum<0) {
-           sum=0;
-         }
-         sum+=v[i];
-         k=z;
-         mx=max(mx,sum);
-       
-    }
-    cout<<mx<<endl;
+    int ans = (mx - mn) * (n-1);
+    cout << ans << endl;
     return;
 }
 

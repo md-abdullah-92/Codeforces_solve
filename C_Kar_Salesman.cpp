@@ -14,18 +14,19 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 void solve()
 {
     int n,x;
-    cin >> n>>x;
-    int ans=0;
-    for(int a=1;a<=min(n,x);a++)
-    {
-       for(int b=1;a*b<=n&& a+b<=x;b++)
-       {
-          int p=x-(a+b);
-          int q=(n-a*b)/(a+b);
-          ans+=min(p,q);
-       }
+    cin >>n>>x;
+    vector<int> v(n);
+    map<int, int> mp;
+    int mx=0,sum=0;
+    for (int i = 0; i < n; i++) {
+        cin >> v[i];
+        mx=max(mx,v[i]);
+        sum+=v[i];
     }
-    cout<<ans<<endl;
+    sum+=x-1;
+    int k=sum/x;
+    k=max(k,mx);
+    cout<<k<<endl;
     return;
 }
 
