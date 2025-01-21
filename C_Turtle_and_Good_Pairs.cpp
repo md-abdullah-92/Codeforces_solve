@@ -13,31 +13,25 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n,x;
-    cin >> n>>x;
-    vector<pair<int,int>> v(n);
-    map<int, int> mp;
+    int n;
+    cin >> n;
+    string s;
+    cin>>s;
+    map<char, int> mp;
     for (int i = 0; i < n; i++) {
-        cin >> v[i].first;
-        v[i].second=i+1;
+        mp[s[i]]++;
+        
     }
-    sort(v.begin(),v.end());
-    for(int i=0;i<n;i++){
-        int required=x-v[i].first;
-        int j=i+1,k=n-1;
-        while(j<k){
-            int sum=v[j].first+v[k].first;
-            if(sum==required){
-                cout<<v[i].second<<" "<<v[j].second<<" "<<v[k].second<<endl;
-                return;
+    while(n--){
+        for(char i='a';i<='z';i++){
+            if(mp[i]){ 
+            cout<<i;
+            mp[i]--;
             }
-            else if(sum<required) {
-                j++;
-            }
-            else k--;
+
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    cout<<endl;
     return;
 }
 
@@ -46,7 +40,7 @@ int32_t main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
- //   cin >> T;
+    cin >> T;
     while (T--) {
         solve();
     }

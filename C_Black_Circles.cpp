@@ -10,34 +10,32 @@ using namespace std;
 template <typename T>
 using order_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update>;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+int a,b;
+int dif(int x,int y){
+    return ((x-a)*(x-a)+(y-b)*(y-b));
+}
 
 void solve()
 {
-    int n,x;
-    cin >> n>>x;
+    int n;
+    cin >> n;
     vector<pair<int,int>> v(n);
     map<int, int> mp;
     for (int i = 0; i < n; i++) {
         cin >> v[i].first;
-        v[i].second=i+1;
+        cin >> v[i].second;
     }
-    sort(v.begin(),v.end());
-    for(int i=0;i<n;i++){
-        int required=x-v[i].first;
-        int j=i+1,k=n-1;
-        while(j<k){
-            int sum=v[j].first+v[k].first;
-            if(sum==required){
-                cout<<v[i].second<<" "<<v[j].second<<" "<<v[k].second<<endl;
-                return;
-            }
-            else if(sum<required) {
-                j++;
-            }
-            else k--;
+    int x,y;
+    cin>>x>>y>>a>>b;
+    int p=dif(x,y);
+     for (int i = 0; i < n; i++) {
+        int xp=dif(v[i].first,v[i].second);
+        if(xp<=p){
+            no;
+            return;
         }
     }
-    cout<<"IMPOSSIBLE\n";
+    yes;
     return;
 }
 
@@ -46,7 +44,7 @@ int32_t main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
- //   cin >> T;
+    cin >> T;
     while (T--) {
         solve();
     }

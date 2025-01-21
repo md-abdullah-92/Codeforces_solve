@@ -13,31 +13,30 @@ mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve()
 {
-    int n,x;
-    cin >> n>>x;
-    vector<pair<int,int>> v(n);
-    map<int, int> mp;
+    int n;
+    cin >> n;
+    vector<int> v(n);
+    vector<int>pos(n);
+    iota(pos.begin(),pos.end(),0);
+    vector<pair<int,int>>ans;
+    
     for (int i = 0; i < n; i++) {
-        cin >> v[i].first;
-        v[i].second=i+1;
+        cin >> v[i];
     }
-    sort(v.begin(),v.end());
-    for(int i=0;i<n;i++){
-        int required=x-v[i].first;
-        int j=i+1,k=n-1;
-        while(j<k){
-            int sum=v[j].first+v[k].first;
-            if(sum==required){
-                cout<<v[i].second<<" "<<v[j].second<<" "<<v[k].second<<endl;
-                return;
+    for(int i=n-1;i;i--){
+        vector<int>mp(i,-1);
+        for (auto j : pos) {
+                if (mp[v[j] % i] != -1) {
+                    ans.emplace_back(j, mp[v[j] % i]);
+                    pos.erase(find(pos.begin(), pos.end(), j));
+                    break;
+                }
+                mp[v[j] % i] = j;
             }
-            else if(sum<required) {
-                j++;
-            }
-            else k--;
         }
-    }
-    cout<<"IMPOSSIBLE\n";
+    reverse(ans.begin(), ans.end());
+    cout << "YES\n";
+    for (auto [x, y] : ans) cout << x + 1 << ' ' << y + 1 << '\n';
     return;
 }
 
@@ -46,7 +45,7 @@ int32_t main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
- //   cin >> T;
+    cin >> T;
     while (T--) {
         solve();
     }
