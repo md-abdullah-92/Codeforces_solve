@@ -10,17 +10,45 @@ using namespace std;
 template <typename T>
 using order_set = tree<T, null_type,less<T>, rb_tree_tag,tree_order_statistics_node_update>;
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+vector<int> v;
+
+int remaining_calls=0;
+
+void unsort(int l,int r){
+    if(r-l<=1||remaining_calls<=0){
+       return;
+    }
+    int mid=(l+r)/2;
+    if (remaining_calls > 1) {
+        swap(v[mid - 1], v[mid]); // Swap two middle elements to "unsort"
+        remaining_calls -= 2;
+        unsort( l, mid);
+        unsort( mid,r);
+    }
+}
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    map<int, int> mp;
+    int n,k;
+    cin >>n>>k;
+    remaining_calls=k-1;
+    v.clear(); // Clear the vector to avoid issues with multiple test cases
     for (int i = 0; i < n; i++) {
-        cin >> v[i];
+        v.push_back(i+1);
     }
-    sort(v.begin(),v.end());
+    if(k%2==0){
+        cout<<"-1\n";
+        return;
+    }
+    unsort(0,n);
+    if(remaining_calls!=0){
+        cout<<"-1\n";
+        return;
+    }
+    for (int num : v) {
+            cout << num << " ";
+    }
+    cout << "\n";
     return;
 }
 
@@ -29,7 +57,7 @@ int32_t main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     int T = 1;
-    cin >> T;
+   // cin >> T;
     while (T--) {
         solve();
     }

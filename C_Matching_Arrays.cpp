@@ -4,74 +4,60 @@
 using namespace __gnu_pbds;
 using namespace std;
 
-// Define commonly used types and macros
 #define int long long
-#define printYes cout << "YES\n";
-#define printNo cout << "NO\n";
+#define yes cout << "YES\n";
+#define no cout << "NO\n";
 
-// Order statistic tree (useful for advanced queries)
 template <typename T>
 using order_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-// Random number generator
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-// Function to solve each test case
 void solve() {
-    int arraySize, maxSwaps;
-    cin >> arraySize >> maxSwaps;
+    int n, x;
+    cin >> n >> x;
 
-    // Read array A and B along with their indices
-    vector<pair<int, int>> arrayA(arraySize), arrayB(arraySize);
-    for (int i = 0; i < arraySize; i++) {
-        cin >> arrayA[i].first;
-        arrayA[i].second = i; // Store the original index
+    vector<pair<int, int>> a(n); 
+    vector<int> b(n), ans(n),c(n); 
+
+    for (int i = 0; i < n; i++) {
+        cin >> a[i].first;
+        a[i].second = i;
+        c[i]=a[i].first;
     }
-    for (int i = 0; i < arraySize; i++) {
-        cin >> arrayB[i].first;
-        arrayB[i].second = i; // Store the original index
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
     }
 
-    // Sort both arrays based on their values
-    sort(arrayA.begin(), arrayA.end());
-    sort(arrayB.begin(), arrayB.end());
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
 
-    int swapsNeededFromStart = 0;
-    int swapsNeededFromEnd = 0;
-    int swapsWithReversed = 0;
+    int j = 0;
+    for (int i = n-x; i < n; i++) {
+            ans[a[i].second] = b[j];
+            j++;
+    }
+    for (int i = 0; i < n-x; i++) {
+                ans[a[i].second] = b[j];
+                j++;
+        
+    }
 
-    // Count swaps required for different conditions
-    for (int i = 0; i < arraySize; i++) {
-        if (arrayA[i].first > arrayB[i].first) {
-            swapsNeededFromStart++;
+    int validCount = 0;
+    for (int i = 0; i < n; i++) {
+        if (c[i] > ans[i]) {
+            validCount++;
         }
     }
-    for (int i = 0; i < arraySize; i++) {
-        if (arrayA[arraySize - i - 1].first > arrayB[i].first) {
-            swapsNeededFromEnd++;
-        }
-    }
-    for (int i = 0; i < arraySize; i++) {
-        if (arrayA[i].first > arrayB[arraySize - i - 1].first) {
-            swapsWithReversed++;
-        }
-    }
-    cou
-    // Check if the conditions are satisfied
-    if (min(swapsWithReversed, swapsNeededFromEnd) > maxSwaps || maxSwaps < swapsNeededFromStart) {
-        printNo;
+
+    if (validCount != x) {
+        no;
         return;
     }
 
-    // Adjust array B by swapping elements
-    for (int i = 0; i < (swapsNeededFromStart - maxSwaps); i++) {
-        swap(arrayB[i], arrayB[arraySize - i - 1]);
-    }
-
-    // Print the results
-    printYes;
-    for (const auto& element : arrayB) {
-        cout << element.first << " ";
+    yes;
+    for (int kp : ans) {
+        cout << kp << " ";
     }
     cout << endl;
 }
@@ -79,13 +65,10 @@ void solve() {
 int32_t main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-
-    int testCases = 1;
-    cin >> testCases;
-
-    while (testCases--) {
+    int T;
+    cin >> T;
+    while (T--) {
         solve();
     }
-
     return 0;
 }
